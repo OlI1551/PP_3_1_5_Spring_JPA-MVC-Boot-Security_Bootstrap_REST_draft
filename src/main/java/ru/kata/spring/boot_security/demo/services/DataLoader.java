@@ -34,6 +34,9 @@ public class DataLoader implements CommandLineRunner {
         roleDao.addRole(new Role(2L, "ROLE_ADMIN"));
         userDao.addUser(new User("admin", "admin", 35, "admin@mail.ru", "test_admin"));
         userDao.addUser(new User("user", "user", 30, "user@mail.ru", "test_user"));
+        userDao.addUser(new User("Ann", "Brown", 22, "Ann@mail.ru", "test_Ann"));
+        userDao.addUser(new User("Nick", "White", 23, "Nick@mail.ru", "test_Nick"));
+        userDao.addUser(new User("Bob", "Black", 25, "Bob@mail.ru", "test_Bob"));
         Set<Role> rolesAdmin = new HashSet<>();
         rolesAdmin.add(new Role(1L, "ROLE_USER"));
         rolesAdmin.add(new Role(2L, "ROLE_ADMIN"));
@@ -47,6 +50,17 @@ public class DataLoader implements CommandLineRunner {
         user.setRoles(rolesUser);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.updateUser(user);
-        System.out.println(userDao.findByEmail("user@mail.ru").getRoles());
+        User ann = userDao.findByEmail("Ann@mail.ru");
+        ann.setRoles(rolesUser);
+        ann.setPassword(passwordEncoder.encode(user.getPassword()));
+        userDao.updateUser(ann);
+        User nick = userDao.findByEmail("Nick@mail.ru");
+        nick.setRoles(rolesUser);
+        nick.setPassword(passwordEncoder.encode(user.getPassword()));
+        userDao.updateUser(nick);
+        User bob = userDao.findByEmail("Bob@mail.ru");
+        bob.setRoles(rolesUser);
+        bob.setPassword(passwordEncoder.encode(user.getPassword()));
+        userDao.updateUser(bob);
     }
 }

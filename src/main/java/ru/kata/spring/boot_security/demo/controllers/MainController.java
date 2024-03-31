@@ -5,16 +5,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.dao.RoleDao;
-import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
-import javax.print.attribute.HashAttributeSet;
-import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,15 +17,12 @@ public class MainController {
 
     private final UserService userService;
 
-    private final RoleDao roleDao;
-
     @Autowired
-    public MainController(UserService userService, RoleDao roleDao) {
+    public MainController(UserService userService) {
         this.userService = userService;
-        this.roleDao = roleDao;
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/page")
     public String showAdminPage(@ModelAttribute("newUser") User newUser,
                                 Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -45,26 +36,27 @@ public class MainController {
         } else {
             model.addAttribute("user", authenticatedUser);
         }
-        return "_admin";
+        return "_page";
     }
 
     @PostMapping("/create")
     public String createUser(@ModelAttribute("newUser") User newUser,
                              @RequestParam("role") String role) {
         userService.create(newUser, role);
-        return "redirect:/admin";
+        return "redirect:/page";
     }
 
     @PostMapping("/edit")
     public String updateUser(@ModelAttribute("user") User user,
                              @RequestParam("role") String role) {
+        System.out.println(user);
         userService.edit(user, role);
-        return "redirect:/admin";
+        return "redirect:/page";
     }
 
     @PostMapping("/delete")
     public String deleteUser(@ModelAttribute("user") User user) {
         userService.delete(user);
-        return "redirect:/admin";
+        return "redirect:/page";
     }
 }

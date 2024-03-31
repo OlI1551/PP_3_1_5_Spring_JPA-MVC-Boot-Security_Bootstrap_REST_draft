@@ -61,19 +61,29 @@ public class UserService implements UserDetailsService {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void edit(User user, String role) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        // Find the user to update
+        User existingUser = userDao.getUserById(user.getId());
+
+        // Update user details
+        existingUser.setId(user.getId());
+        existingUser.setFirstName(user.getFirstName());
+        existingUser.setLastName(user.getLastName());
+        existingUser.setAge(user.getAge());
+        existingUser.setEmail(user.getEmail());
+        existingUser.setPassword(user.getPassword());
+        existingUser.setRoles(user.getRoles());
         Set<Role> roles = new HashSet<>();
         if (role.equals("ROLE_ADMIN")) {
             roles.add(new Role(2L, "ROLE_ADMIN"));
         } else {
             roles.add(new Role(1L, "ROLE_USER"));
         }
-        user.setRoles(roles);
-        userDao.updateUser(user);
+        existingUser.setRoles(roles);
+        userDao.updateUser(existingUser);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void delete(User user) {
-        userDao.deleteUser(user);
+        userDao.deleteUser(userDao.getUserById(user.getId()));
     }
 }
