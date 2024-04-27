@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.models;
+package ru.kata.spring.boot_bootstrap.demo.models;
 
 import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
@@ -19,8 +19,7 @@ public class Role implements GrantedAuthority {
     @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
     private Set<User> users;
 
-    public Role() {
-    }
+    public Role() {}
 
     public Role(Long id) {
         this.id = id;

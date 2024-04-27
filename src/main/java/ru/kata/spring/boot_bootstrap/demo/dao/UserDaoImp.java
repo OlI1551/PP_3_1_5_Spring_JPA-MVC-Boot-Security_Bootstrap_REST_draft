@@ -1,15 +1,14 @@
-package ru.kata.spring.boot_security.demo.dao;
+package ru.kata.spring.boot_bootstrap.demo.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_bootstrap.demo.models.User;
 import java.util.List;
 
 

@@ -1,10 +1,9 @@
-package ru.kata.spring.boot_security.demo.configs;
+package ru.kata.spring.boot_bootstrap.demo.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,18 +11,18 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import ru.kata.spring.boot_security.demo.services.UserService;
+import ru.kata.spring.boot_bootstrap.demo.services.UserServiceImpl;
 
 
 @Configuration
 @EnableWebSecurity
 @EnableTransactionManagement
-@ComponentScan(basePackages = "ru.kata.spring.boot_security.demo")
+@ComponentScan(basePackages = "ru.kata.spring.boot_bootstrap.demo")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @Autowired
-    public WebSecurityConfig(UserService userService) {
+    public WebSecurityConfig(UserServiceImpl userService) {
         this.userService = userService;
     }
 

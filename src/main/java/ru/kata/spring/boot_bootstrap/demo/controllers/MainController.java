@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.controllers;
+package ru.kata.spring.boot_bootstrap.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -6,8 +6,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.services.UserService;
+import ru.kata.spring.boot_bootstrap.demo.models.User;
+import ru.kata.spring.boot_bootstrap.demo.services.UserServiceImpl;
 
 import java.util.List;
 
@@ -15,10 +15,10 @@ import java.util.List;
 @Controller
 public class MainController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @Autowired
-    public MainController(UserService userService) {
+    public MainController(UserServiceImpl userService) {
         this.userService = userService;
     }
 

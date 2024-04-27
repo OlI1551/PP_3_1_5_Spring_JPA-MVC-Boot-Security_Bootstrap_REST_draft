@@ -1,13 +1,13 @@
-package ru.kata.spring.boot_security.demo.services;
+package ru.kata.spring.boot_bootstrap.demo.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import ru.kata.spring.boot_security.demo.dao.RoleDao;
-import ru.kata.spring.boot_security.demo.dao.UserDao;
-import ru.kata.spring.boot_security.demo.models.Role;
-import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_bootstrap.demo.dao.RoleDao;
+import ru.kata.spring.boot_bootstrap.demo.dao.UserDao;
+import ru.kata.spring.boot_bootstrap.demo.models.Role;
+import ru.kata.spring.boot_bootstrap.demo.models.User;
 import java.util.HashSet;
 import java.util.Set;
 
