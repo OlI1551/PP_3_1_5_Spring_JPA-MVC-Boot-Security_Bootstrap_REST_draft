@@ -13,37 +13,34 @@ import java.util.List;
 
 
 @Controller
-public class MainController {
+public class AdminController {
 
     private final UserServiceImpl userService;
 
     @Autowired
-    public MainController(UserServiceImpl userService) {
+    public AdminController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/page")
+    @GetMapping("/admin")
     public String showAdminPage(@ModelAttribute("newUser") User newUser,
                                 Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User authenticatedUser = (User) authentication.getPrincipal();
         String roles = authenticatedUser.getRoles().toString();
-        if (roles.contains("ROLE_ADMIN")) {
-            model.addAttribute("admin", authenticatedUser);
-            model.addAttribute("user", authenticatedUser);
-            List<User> users = userService.listUsers();
-            model.addAttribute("users", users);
-        } else {
-            model.addAttribute("user", authenticatedUser);
-        }
-        return "_page";
+        model.addAttribute("admin", authenticatedUser);
+        model.addAttribute("user", authenticatedUser);
+        List<User> users = userService.listUsers();
+        model.addAttribute("users", users);
+
+        return "admin_page";
     }
 
     @PostMapping("/create")
     public String createUser(@ModelAttribute("newUser") User newUser,
                              @RequestParam("role") String role) {
         userService.create(newUser, role);
-        return "redirect:/page";
+        return "redirect:/admin";
     }
 
     @PostMapping("/edit")
@@ -51,12 +48,12 @@ public class MainController {
                              @RequestParam("role") String role) {
         System.out.println(user);
         userService.edit(user, role);
-        return "redirect:/page";
+        return "redirect:/admin";
     }
 
     @PostMapping("/delete")
     public String deleteUser(@ModelAttribute("user") User user) {
         userService.delete(user);
-        return "redirect:/page";
+        return "redirect:/admin";
     }
 }

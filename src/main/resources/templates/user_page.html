@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+<!--    <link rel="icon" href="https://img.freepik.com/free-icon/leaf_318-654663.jpg">-->
+    <link rel="icon" type="image/png" href="/pngegg.png">
+    <title>User page</title>
+    <style>
+        /* Отступ для контента под фиксированным навигационным баром */
+        body {
+            padding-top: 70px;
+            background: linear-gradient(to right, white 16.5%, #f5f5f5 16.5%, #f5f5f5 100%);
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-dark bg-dark fixed-top">
+                    <span class="navbar-brand">
+                        <b th:text="${user.getEmail()}">username@mail.ru</b>
+                        <span> with roles: </span>
+                        <span th:each="role : ${user.getRoles()}"
+                              th:text="${role.getName().replace('ROLE_', '') + ' '}">USER
+                        </span>
+                    </span>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    </div>
+</header>
+<main>
+<div class="container-fluid">
+    <div class="row">
+        <!-- User tab on the left -->
+        <div class="col-md-2 pr-0 pl-0">
+            <div class="nav nav-pills flex-column" id="v-tabs-tab" role="tablist" aria-orientation="vertical">
+                <a href="#v-tabs-user" class="nav-link active" id="v-tabs-user-tab" data-toggle="tab"
+                   role="tab" aria-controls="v-tabs-user" aria-selected="true">User</a>
+            </div>
+        </div>
+        <!-- tabs' content -->
+        <div class="col-md-10 pr-0" style="background-color: #f0f0f0">
+            <div class="tab-content" id="v-tabs-content">
+                <!-- User tab content -->
+                <div class="tab-pane fade show active mr-3" id="v-tabs-user"
+                     role="tabpanel" aria-labelledby="v-tabs-user-tab">
+                    <h2>User information-page</h2>
+                    <div class="card bg-light mb-3">
+                        <h5 class="card-header">About user</h5>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Age</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td th:text="${user.getId()}"/>
+                                    <td th:text="${user.getFirstName()}"/>
+                                    <td th:text="${user.getLastName()}"/>
+                                    <td th:text="${user.getAge()}"/>
+                                    <td th:text="${user.getEmail()}"/>
+                                    <td>
+                                            <span th:each="role : ${user.getRoles()}"
+                                                  th:text="${role.getName().replace('ROLE_', '') + ' '}">USER
+                                            </span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+</body>
+</html>

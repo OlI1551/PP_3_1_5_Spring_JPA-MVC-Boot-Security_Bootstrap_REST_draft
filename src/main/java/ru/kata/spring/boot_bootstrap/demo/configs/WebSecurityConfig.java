@@ -20,10 +20,12 @@ import ru.kata.spring.boot_bootstrap.demo.services.UserServiceImpl;
 @ComponentScan(basePackages = "ru.kata.spring.boot_bootstrap.demo")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserServiceImpl userService;
+    private final SuccessUserHandler successUserHandler;
 
     @Autowired
-    public WebSecurityConfig(UserServiceImpl userService) {
+    public WebSecurityConfig(UserServiceImpl userService, SuccessUserHandler successUserHandler) {
         this.userService = userService;
+        this.successUserHandler = successUserHandler;
     }
 
     @Override
@@ -36,10 +38,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/")
                 .loginProcessingUrl("/process_login")
-                .defaultSuccessUrl("/page", true)
-//                .successHandler(successUserHandler)
-//                .permitAll()
-                .failureUrl("/login?error")
+//                .defaultSuccessUrl("/page", true)
+                .successHandler(successUserHandler)
+                .permitAll()
+                .failureUrl("/?error")
                 .and()
                 .logout()
                 .permitAll()

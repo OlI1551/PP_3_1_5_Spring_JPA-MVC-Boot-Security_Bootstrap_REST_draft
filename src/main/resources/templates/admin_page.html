@@ -18,12 +18,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-
 <!--    <link rel="icon" href="https://img.freepik.com/free-icon/leaf_318-654663.jpg">-->
     <link rel="icon" type="image/png" href="/pngegg.png">
-
     <title>Admin panel</title>
-
     <style>
         /* Отступ для контента под фиксированным навигационным баром */
         body {
@@ -61,9 +58,9 @@
         <!-- Admin and User tabs on the left -->
         <div class="col-md-2 pr-0 pl-0">
             <div class="nav nav-pills flex-column" id="v-tabs-tab" role="tablist" aria-orientation="vertical">
-                <a href="#v-tabs-admin" th:if="${admin}" class="nav-link active" id="v-tabs-admin-tab" data-toggle="tab"
+                <a href="#v-tabs-admin" class="nav-link active" id="v-tabs-admin-tab" data-toggle="tab"
                    role="tab" aria-controls="v-tabs-admin" aria-selected="true">Admin</a>
-                <a href="#v-tabs-user" th:class="${admin} ? 'nav-link' : 'nav-link active'" id="v-tabs-user-tab" data-toggle="tab"
+                <a href="#v-tabs-user" class="nav-link" id="v-tabs-user-tab" data-toggle="tab"
                    role="tab" aria-controls="v-tabs-user" aria-selected="false">User</a>
             </div>
         </div>
@@ -71,7 +68,7 @@
         <div class="col-md-10 pr-0" style="background-color: #f0f0f0">
             <div class="tab-content" id="v-tabs-content">
                 <!-- Admin tab content -->
-                <div th:if="${admin}" class="tab-pane fade show active mr-3" id="v-tabs-admin" role="tabpanel"
+                <div class="tab-pane fade show active mr-3" id="v-tabs-admin" role="tabpanel"
                      aria-labelledby="v-tabs-admin-tab">
                     <h2>Admin panel</h2>
                     <!-- Users table and New User tabs on the top -->
@@ -409,7 +406,7 @@
                     </div>
                 </div>
                 <!-- User tab content -->
-                <div th:class="${admin} ? 'tab-pane fade mr-3' : 'tab-pane fade show active mr-3'" id="v-tabs-user"
+                <div class="'tab-pane fade mr-3" id="v-tabs-user"
                      role="tabpanel" aria-labelledby="v-tabs-user-tab">
                     <h2>User information-page</h2>
                     <div class="card bg-light mb-3">

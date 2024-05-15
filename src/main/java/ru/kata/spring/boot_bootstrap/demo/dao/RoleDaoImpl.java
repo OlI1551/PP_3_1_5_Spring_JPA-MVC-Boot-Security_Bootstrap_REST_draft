@@ -9,16 +9,10 @@ import javax.persistence.PersistenceContext;
 
 
 @Repository
-public class RoleDaoImp implements RoleDao {
+public class RoleDaoImpl implements RoleDao {
 
     @PersistenceContext
     private EntityManager entityManager;
-
-    @Override
-    @Transactional(readOnly = true)
-    public Role getRoleById(Long id) {
-        return entityManager.find(Role.class, id);
-    }
 
     @Override
     @Transactional
