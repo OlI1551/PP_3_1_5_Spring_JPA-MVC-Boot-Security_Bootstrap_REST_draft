@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findByEmail(username);
+        User user = userDao.findUserByEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
@@ -52,15 +52,15 @@ public class UserServiceImpl implements UserService {
         Set<Role> roles = new HashSet<>();
         if (role.equals("ROLE_ADMIN")) {
             roles.add(new Role(2L, "ROLE_ADMIN"));
-        } else {
-            roles.add(new Role(1L, "ROLE_USER"));
         }
+        roles.add(new Role(1L, "ROLE_USER"));
+
         user.setRoles(roles);
         userDao.addUser(user);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void edit(User user, String role) {
+    public void update(User user, String role) {
         // Find the user to update
         User existingUser = userDao.getUserById(user.getId());
 
@@ -70,20 +70,25 @@ public class UserServiceImpl implements UserService {
         existingUser.setLastName(user.getLastName());
         existingUser.setAge(user.getAge());
         existingUser.setEmail(user.getEmail());
-        existingUser.setPassword(user.getPassword());
-        existingUser.setRoles(user.getRoles());
+        if (!user.getPassword().equals(existingUser.getPassword())) {
+            existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        } else {
+            existingUser.setPassword(user.getPassword());
+        }
         Set<Role> roles = new HashSet<>();
         if (role.equals("ROLE_ADMIN")) {
             roles.add(new Role(2L, "ROLE_ADMIN"));
-        } else {
-            roles.add(new Role(1L, "ROLE_USER"));
         }
+        roles.add(new Role(1L, "ROLE_USER"));
+
         existingUser.setRoles(roles);
         userDao.updateUser(existingUser);
+//        userDao.updateUser(userDao.getUserById(user.getId()));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void delete(User user) {
         userDao.deleteUser(userDao.getUserById(user.getId()));
+//        userDao.deleteUser(user);
     }
 }

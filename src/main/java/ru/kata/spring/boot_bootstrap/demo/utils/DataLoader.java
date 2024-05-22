@@ -40,27 +40,27 @@ public class DataLoader implements CommandLineRunner {
         Set<Role> rolesAdmin = new HashSet<>();
         rolesAdmin.add(new Role(1L, "ROLE_USER"));
         rolesAdmin.add(new Role(2L, "ROLE_ADMIN"));
-        User admin = userDao.findByEmail("admin@mail.ru");
+        User admin = userDao.findUserByEmail("admin@mail.ru");
         admin.setRoles(rolesAdmin);
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         userDao.updateUser(admin);
         Set<Role> rolesUser = new HashSet<>();
         rolesUser.add(new Role(1L, "ROLE_USER"));
-        User user = userDao.findByEmail("user@mail.ru");
+        User user = userDao.findUserByEmail("user@mail.ru");
         user.setRoles(rolesUser);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.updateUser(user);
-        User ann = userDao.findByEmail("Ann@mail.ru");
+        User ann = userDao.findUserByEmail("Ann@mail.ru");
         ann.setRoles(rolesUser);
-        ann.setPassword(passwordEncoder.encode(user.getPassword()));
+        ann.setPassword(passwordEncoder.encode(ann.getPassword()));
         userDao.updateUser(ann);
-        User nick = userDao.findByEmail("Nick@mail.ru");
+        User nick = userDao.findUserByEmail("Nick@mail.ru");
         nick.setRoles(rolesUser);
-        nick.setPassword(passwordEncoder.encode(user.getPassword()));
+        nick.setPassword(passwordEncoder.encode(nick.getPassword()));
         userDao.updateUser(nick);
-        User bob = userDao.findByEmail("Bob@mail.ru");
+        User bob = userDao.findUserByEmail("Bob@mail.ru");
         bob.setRoles(rolesUser);
-        bob.setPassword(passwordEncoder.encode(user.getPassword()));
+        bob.setPassword(passwordEncoder.encode(bob.getPassword()));
         userDao.updateUser(bob);
     }
 }

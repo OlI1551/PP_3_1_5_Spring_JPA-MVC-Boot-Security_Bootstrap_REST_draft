@@ -159,7 +159,7 @@
                                                                                        id="edit-firstName"
                                                                                        th:value="*{firstName}"
                                                                                        name="firstName"
-                                                                                       minlength="2" maxlength="30"
+                                                                                       th:minlength="2" th:maxlength="30"
                                                                                        required>
                                                                             </div>
                                                                             <div class="form-group mb-3">
@@ -169,7 +169,8 @@
                                                                                        id="edit-lastName"
                                                                                        th:value="*{lastName}"
                                                                                        name="lastName"
-                                                                                       min="2" maxlength="30" required>
+                                                                                       th:minlength="2" th:maxlength="30"
+                                                                                       required>
                                                                             </div>
                                                                             <div class="form-group mb-3">
                                                                                 <label for="edit-age"
@@ -179,7 +180,8 @@
                                                                                        id="edit-age"
                                                                                        th:value="*{age}"
                                                                                        name="age"
-                                                                                       min="1" max="120" required>
+                                                                                       th:min="1" th:max="120"
+                                                                                       required>
                                                                             </div>
                                                                             <div class="form-group mb-3">
                                                                                 <label for="edit-email"
@@ -193,11 +195,12 @@
                                                                             <div class="form-group mb-3">
                                                                                 <label for="edit-password"
                                                                                        class="form-label font-weight-bold mb-0">Password</label>
-                                                                                <input class="form-control" type="text"
-                                                                                       id="edit-password" name="password">
-<!--                                                                                       th:value="*{password}"-->
-<!--                                                                                       name="password"-->
-<!--                                                                                       maxlength="4" required>-->
+                                                                                <input class="form-control" type="password"
+                                                                                       id="edit-password"
+                                                                                       name="password"
+                                                                                       th:value="*{password}"
+                                                                                       th:min="4"
+                                                                                       required>
                                                                             </div>
                                                                             <div class="form-group mb-3">
                                                                                 <label for="edit-roles"
@@ -206,7 +209,8 @@
                                                                                         id="edit-roles"
                                                                                         aria-label="Select role"
                                                                                         th:name="role"
-                                                                                        size="2" required>
+                                                                                        size="2"
+                                                                                        required>
                                                                                     <option value="ROLE_ADMIN">ADMIN
                                                                                     </option>
                                                                                     <option value="ROLE_USER">USER
@@ -266,7 +270,7 @@
                                                                                        id="delete-firstname"
                                                                                        th:value="*{firstName}"
                                                                                        name="firstName"
-                                                                                       readonly>
+                                                                                       disabled>
                                                                             </div>
                                                                             <div class="form-group mb-3">
                                                                                 <label for="delete-lastname"
@@ -276,7 +280,7 @@
                                                                                        id="delete-lastname"
                                                                                        th:value="*{lastName}"
                                                                                        name="lastName"
-                                                                                       readonly>
+                                                                                       disabled>
                                                                             </div>
                                                                             <div class="form-group mb-3">
                                                                                 <label for="delete-age"
@@ -286,7 +290,7 @@
                                                                                        id="delete-age"
                                                                                        th:value="*{age}"
                                                                                        name="age"
-                                                                                       readonly>
+                                                                                       disabled>
                                                                             </div>
                                                                             <div class="form-group mb-3">
                                                                                 <label for="delete-email"
@@ -295,7 +299,7 @@
                                                                                        id="delete-email"
                                                                                        th:value="*{email}"
                                                                                        name="email"
-                                                                                       readonly>
+                                                                                       disabled>
                                                                             </div>
                                                                             <div class="form-group mb-3">
                                                                                 <label for="delete-roles"
@@ -305,7 +309,8 @@
                                                                                         aria-label="Select role"
                                                                                         th:value="*{roles}"
                                                                                         th:name="role"
-                                                                                        size="2" required>
+                                                                                        size="2"
+                                                                                        disabled>
                                                                                     <option th:each="role : ${user.getRoles()}"
                                                                                             th:value="${role.getName()}"
                                                                                             th:switch="${role.getName()}"

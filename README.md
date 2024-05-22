@@ -5,9 +5,8 @@
 # Приложение с Bootstrap оформлением
 
 ### Description of the project
-    Проект сделан по видео:
-        Eugene Suleimanov
-        https://www.youtube.com/watch?v=e7swABdqOS4&list=PLlsMRoVt5sTNpihn4q4S4an2xpYkSA3RR
+    Проект сделан по задаче Kata Academy:
+        PP_3_1_4_Bootstrap
 
 ### Entry point
     http://localhost:8080

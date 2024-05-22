@@ -21,9 +21,9 @@ public class UserDaoImpl implements UserDao {
    @Override
    @Transactional(readOnly = true)
    @Query("Select u from User u left join fetch u.roles where u.email=:email")
-   public User findByEmail(String email) {
+   public User findUserByEmail(String email) {
       TypedQuery<User> query = entityManager.createQuery(
-              "SELECT u FROM User u WHERE u.email = :email", User.class); // запрос JPQL
+              "SELECT u FROM User u WHERE u.email =: email", User.class); // запрос JPQL
       query.setParameter("email", email);
       try {
          return query.getSingleResult();
