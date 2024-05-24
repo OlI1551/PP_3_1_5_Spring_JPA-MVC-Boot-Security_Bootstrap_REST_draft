@@ -27,29 +27,61 @@
             padding-top: 70px;
             background: linear-gradient(to right, white 16.5%, #f5f5f5 16.5%, #f5f5f5 100%);
         }
+        /* Custom CSS for changing nav-tabs color */
+        .nav-tabs .nav-link {
+            color: #fd7e14; /* Default text color #555*/
+        }
+
+        /*.nav-tabs .nav-link.active {*/
+        /*    color: #fff; !* Text color when active #fff*!*/
+        /*    background-color: #fd7e14; !* Background color when active #007bff*!*/
+        /*    border-color: #fd7e14; !* Border color when active #007bff*!*/
+        /*}*/
+
+        /*.nav-tabs .nav-link:hover {*/
+        /*    color: #007bff; !* Text color on hover #007bff*!*/
+        /*}*/
+
+        /* Custom CSS for changing nav-pills color */
+        .nav-pills .nav-link {
+            color: #fd7e14; /* Default text color #555*/
+        }
+
+        .nav-pills .nav-link.active {
+            color: #fff; /* Text color when active #fff*/
+            background-color: #fd7e14; /* Background color when active #007bff*/
+        }
+
+        /*.nav-pills .nav-link:hover {*/
+        /*    color: #007bff; !* Text color on hover #007bff*!*/
+        /*}*/
+
     </style>
 </head>
 <body>
 <header>
     <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <nav class="navbar navbar-dark bg-dark fixed-top">
-                    <span class="navbar-brand">
-                        <b th:text="${user.getEmail()}">username@mail.ru</b>
-                        <span> with roles: </span>
-                        <span th:each="role : ${user.getRoles()}"
-                              th:text="${role.getName().replace('ROLE_', '') + ' '}">USER
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar bg fixed-top"
+                     style="background-color: darkgreen;
+                     color: white">
+                        <span class="navbar-brand">
+                            <b th:text="${user.getEmail()}">username@mail.ru</b>
+                            <span> with roles: </span>
+                            <span th:each="role : ${user.getRoles()}"
+                                  th:text="${role.getName().replace('ROLE_', '') + ' '}">USER
+                            </span>
                         </span>
-                    </span>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
-                    </li>
-                </ul>
-            </nav>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout"
+                            style="color: #fd7e14">Logout</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-    </div>
     </div>
 </header>
 <main>
@@ -59,9 +91,11 @@
         <div class="col-md-2 pr-0 pl-0">
             <div class="nav nav-pills flex-column" id="v-tabs-tab" role="tablist" aria-orientation="vertical">
                 <a href="#v-tabs-admin" class="nav-link active" id="v-tabs-admin-tab" data-toggle="tab"
-                   role="tab" aria-controls="v-tabs-admin" aria-selected="true">Admin</a>
+                   role="tab" aria-controls="v-tabs-admin" aria-selected="true"
+                   >Admin</a>
                 <a href="#v-tabs-user" class="nav-link" id="v-tabs-user-tab" data-toggle="tab"
-                   role="tab" aria-controls="v-tabs-user" aria-selected="false">User</a>
+                   role="tab" aria-controls="v-tabs-user" aria-selected="false"
+                   >User</a>
             </div>
         </div>
         <!-- tabs' content -->
@@ -113,13 +147,17 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                                                        th:data-target="'#editModal'+${user.getId()}">Edit
+                                                <button type="button" class="btn btn-sm" data-toggle="modal"
+                                                        th:data-target="'#editModal'+${user.getId()}"
+                                                        style="background-color: lawngreen; color: darkgreen;
+                                                        border-color: lawngreen">Edit
                                                 </button>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                        th:data-target="'#deleteModal'+ ${user.getId()}">Delete
+                                                <button type="button" class="btn btn-sm" data-toggle="modal"
+                                                        th:data-target="'#deleteModal'+ ${user.getId()}"
+                                                        style="background-color: #fd7e14; color: yellow;
+                                                        border-color: #fd7e14">Delete
                                                 </button>
                                             </td>
 
