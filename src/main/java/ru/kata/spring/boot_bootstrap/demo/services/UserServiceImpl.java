@@ -61,19 +61,8 @@ public class UserServiceImpl implements UserService {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void update(User user, String role) {
-        // Find the user to update
-        User existingUser = userDao.getUserById(user.getId());
-
-        // Update user details
-        existingUser.setId(user.getId());
-        existingUser.setFirstName(user.getFirstName());
-        existingUser.setLastName(user.getLastName());
-        existingUser.setAge(user.getAge());
-        existingUser.setEmail(user.getEmail());
-        if (!user.getPassword().equals(existingUser.getPassword())) {
-            existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
-        } else {
-            existingUser.setPassword(user.getPassword());
+        if (!user.getPassword().equals(userDao.getUserById(user.getId()).getPassword())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         Set<Role> roles = new HashSet<>();
         if (role.equals("ROLE_ADMIN")) {
@@ -81,9 +70,30 @@ public class UserServiceImpl implements UserService {
         }
         roles.add(new Role(1L, "ROLE_USER"));
 
-        existingUser.setRoles(roles);
-        userDao.updateUser(existingUser);
-//        userDao.updateUser(userDao.getUserById(user.getId()));
+        user.setRoles(roles);
+        userDao.updateUser(user);
+//        // Find the user to update
+//        User existingUser = userDao.getUserById(user.getId());
+//
+//        // Update user details
+//        existingUser.setId(user.getId());
+//        existingUser.setFirstName(user.getFirstName());
+//        existingUser.setLastName(user.getLastName());
+//        existingUser.setAge(user.getAge());
+//        existingUser.setEmail(user.getEmail());
+//        if (!user.getPassword().equals(existingUser.getPassword())) {
+//            existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+//        } else {
+//            existingUser.setPassword(user.getPassword());
+//        }
+//        Set<Role> roles = new HashSet<>();
+//        if (role.equals("ROLE_ADMIN")) {
+//            roles.add(new Role(2L, "ROLE_ADMIN"));
+//        }
+//        roles.add(new Role(1L, "ROLE_USER"));
+//
+//        existingUser.setRoles(roles);
+//        userDao.updateUser(existingUser);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

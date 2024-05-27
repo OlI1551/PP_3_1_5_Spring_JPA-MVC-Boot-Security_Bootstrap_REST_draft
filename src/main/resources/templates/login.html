@@ -33,6 +33,11 @@
         button {
             margin-top: 7px;
         }
+        /* Custom CSS to override Bootstrap's default input focus border color */
+        .form-control:focus {
+            border-color: lawngreen; /* Change this to your desired color */
+            box-shadow: 0 0 0 0.2rem greenyellow; /* Adjust the rgba values for the shadow effect */
+        }
     </style>
 </head>
 <body>
@@ -50,7 +55,7 @@
                 <div class="form-group">
                     <input type="password" name="password" class="form-control" id="password" placeholder="Password" required/>
                 </div>
-                <button type="submit" class="btn btn-primary  btn-lg btn-block">Sign in</button>
+                <button type="submit" class="btn btn-primary  btn-lg btn-block" style="background-color: darkgreen; border: darkgreen">Sign in</button>
                 <div th:if="${param.error}" style="color: red">
                     Wrong Email address or Password
                 </div>
