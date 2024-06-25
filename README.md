@@ -6,7 +6,7 @@
 
 ### Description of the project
     Проект сделан по задаче Kata Academy:
-        PP_3_1_4_Bootstrap
+        PP_3_1_5_Bootstrap
 
 ### Entry point
     http://localhost:8080
