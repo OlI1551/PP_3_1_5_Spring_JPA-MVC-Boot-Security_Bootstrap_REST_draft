@@ -11,8 +11,8 @@
 	<groupId>ru.kata</groupId>
 	<artifactId>PP_3_1_4_Spring_JPA-MVC-Boot-Security_Bootstrap_draft</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>PP_3_1_4_Spring_JPA-MVC-Boot-Security_Bootstrap_draft</name>
-	<description>Demo project for Bootstrap</description>
+	<name>PP_3_1_5_Spring_JPA-MVC-Boot-Security-Bootstrap_REST_draft</name>
+	<description>Demo project for REST</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
