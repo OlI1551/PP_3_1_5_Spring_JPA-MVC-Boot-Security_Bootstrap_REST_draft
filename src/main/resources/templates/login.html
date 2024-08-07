@@ -18,7 +18,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-    <!--    <link rel="icon" href="https://img.freepik.com/free-icon/leaf_318-654663.jpg">-->
     <link rel="icon" type="image/png" href="/spring_leaf_picture.png">
     <title>Login page</title>
     <style>
@@ -33,10 +32,18 @@
         button {
             margin-top: 7px;
         }
-        /* Custom CSS to override Bootstrap's default input focus border color */
+        /* Custom CSS to override Bootstrap default input focus border color */
         .form-control:focus {
-            border-color: lawngreen; /* Change this to your desired color */
-            box-shadow: 0 0 0 0.2rem greenyellow; /* Adjust the rgba values for the shadow effect */
+            border-color: lawngreen;
+            box-shadow: 0 0 0 0.2rem greenyellow; /* shadow effect */
+        }
+        #login {
+            background-color: darkgreen;
+            border: darkgreen
+        }
+        #login:focus {
+            border-color: lawngreen;
+            box-shadow: 0 0 0 0.2rem greenyellow; /* shadow effect */
         }
     </style>
 </head>
@@ -55,7 +62,7 @@
                 <div class="form-group">
                     <input type="password" name="password" class="form-control" id="password" placeholder="Password" required/>
                 </div>
-                <button type="submit" class="btn btn-primary  btn-lg btn-block" style="background-color: darkgreen; border: darkgreen">Sign in</button>
+                <button type="submit" class="btn btn-primary  btn-lg btn-block" id="login">Sign in</button>
                 <div th:if="${param.error}" style="color: red">
                     Wrong Email address or Password
                 </div>

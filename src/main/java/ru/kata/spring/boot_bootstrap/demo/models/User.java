@@ -7,6 +7,9 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.*;
 
 @Entity
@@ -17,18 +20,25 @@ public class User implements UserDetails {
    private Long id;
 
    @Column(name = "first_name")
+   @NotEmpty(message = "Name should not be empty")
+   @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
    private String firstName;
 
    @Column(name = "last_name")
+   @NotEmpty(message = "Last name should not be empty")
+   @Size(min = 2, max = 30, message = "Last name should be between 2 and 30 characters")
    private String lastName;
 
    @Column(name = "age")
+   @Min(value = 0, message = "Age should be greater than 0")
    int age;
 
    @Column(name = "email")
+   @NotEmpty(message = "Email should not be empty")
    private String email;
 
    @Column(name = "password")
+   @NotEmpty(message = "Password should not be empty")
    private String password;
 
    @ManyToMany(fetch = FetchType.LAZY)

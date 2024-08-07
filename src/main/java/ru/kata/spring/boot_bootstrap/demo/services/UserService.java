@@ -13,6 +13,4 @@ public interface UserService extends UserDetailsService {
     void create(User user, String role);
     void update(User user, String role);
     void delete(User user);
-
-
 }

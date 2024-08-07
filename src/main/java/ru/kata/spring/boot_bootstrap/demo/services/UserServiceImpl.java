@@ -28,14 +28,23 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        User user = userDao.findUserByEmail(username);
+//        if (user == null) {
+//            throw new UsernameNotFoundException("User not found");
+//        }
+//        return user;
+//    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findUserByEmail(username);
-        if (user == null) {
+        try {
+            return userDao.findUserByEmail(username);
+        } catch (UsernameNotFoundException u) {
             throw new UsernameNotFoundException("User not found");
         }
-        return user;
     }
+
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<User> listUsers() {

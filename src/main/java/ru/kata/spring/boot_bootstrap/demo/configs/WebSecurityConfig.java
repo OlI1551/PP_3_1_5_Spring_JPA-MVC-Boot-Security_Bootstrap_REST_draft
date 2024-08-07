@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,17 +32,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .anyRequest().authenticated()
-                .and()
                 .formLogin()
                 .loginPage("/")
                 .loginProcessingUrl("/process_login")
-//                .defaultSuccessUrl("/page", true)
                 .successHandler(successUserHandler)
                 .permitAll()
                 .failureUrl("/?error")
+                .and()
+//                .csrf().disable()// отключаем защиту куки, чтобы Postman работал - работает
+                .httpBasic(Customizer.withDefaults()) // Basic Auth для Postman
+                .authorizeRequests()
+                .antMatchers("/").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .logout()
                 .permitAll()
@@ -53,11 +55,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userService)
                 .passwordEncoder(getPasswordEncoder());
     }
-    // Если ментор просит encode сделать без привязки к сервису, создать для него бин.
-    // Обязательн в WebSecurityConfig, метод BCryptPasswordEncoder делайте static.
-    // Мелкое замечание, которое сэкономит вам время
+
     @Bean
     public static PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(14);
     }
 }
