@@ -2,65 +2,45 @@ package ru.kata.spring.boot_bootstrap.demo.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import ru.kata.spring.boot_bootstrap.demo.dao.RoleDao;
-import ru.kata.spring.boot_bootstrap.demo.dao.UserDao;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_bootstrap.demo.models.Role;
 import ru.kata.spring.boot_bootstrap.demo.models.User;
-import java.util.HashSet;
-import java.util.Set;
+import ru.kata.spring.boot_bootstrap.demo.services.RoleService;
+import ru.kata.spring.boot_bootstrap.demo.services.UserService;
+
 
 @Component
 public class DataLoader implements CommandLineRunner {
-
-    private final RoleDao roleDao;
-
-    private final UserDao userDao;
-
-    private final PasswordEncoder passwordEncoder;
+    private final RoleService roleService;
+    private final UserService userService;
 
 
     @Autowired
-    public DataLoader(RoleDao roleDao, UserDao userDao, PasswordEncoder passwordEncoder) {
-        this.roleDao = roleDao;
-        this.userDao = userDao;
-        this.passwordEncoder = passwordEncoder;
+    public DataLoader(RoleService roleService, UserService userService) {
+        this.roleService = roleService;
+        this.userService = userService;
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
-        roleDao.addRole(new Role(1L, "ROLE_USER"));
-        roleDao.addRole(new Role(2L, "ROLE_ADMIN"));
-        userDao.addUser(new User("admin", "admin", 35, "admin@mail.ru", "test_admin"));
-        userDao.addUser(new User("user", "user", 30, "user@mail.ru", "test_user"));
-        userDao.addUser(new User("Ann", "Brown", 22, "Ann@mail.ru", "test_Ann"));
-        userDao.addUser(new User("Nick", "White", 23, "Nick@mail.ru", "test_Nick"));
-        userDao.addUser(new User("Bob", "Black", 25, "Bob@mail.ru", "test_Bob"));
-        Set<Role> rolesAdmin = new HashSet<>();
-        rolesAdmin.add(new Role(1L, "ROLE_USER"));
-        rolesAdmin.add(new Role(2L, "ROLE_ADMIN"));
-        User admin = userDao.findUserByEmail("admin@mail.ru");
-        admin.setRoles(rolesAdmin);
-        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-        userDao.updateUser(admin);
-        Set<Role> rolesUser = new HashSet<>();
-        rolesUser.add(new Role(1L, "ROLE_USER"));
-        User user = userDao.findUserByEmail("user@mail.ru");
-        user.setRoles(rolesUser);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userDao.updateUser(user);
-        User ann = userDao.findUserByEmail("Ann@mail.ru");
-        ann.setRoles(rolesUser);
-        ann.setPassword(passwordEncoder.encode(ann.getPassword()));
-        userDao.updateUser(ann);
-        User nick = userDao.findUserByEmail("Nick@mail.ru");
-        nick.setRoles(rolesUser);
-        nick.setPassword(passwordEncoder.encode(nick.getPassword()));
-        userDao.updateUser(nick);
-        User bob = userDao.findUserByEmail("Bob@mail.ru");
-        bob.setRoles(rolesUser);
-        bob.setPassword(passwordEncoder.encode(bob.getPassword()));
-        userDao.updateUser(bob);
+        roleService.addRole(new Role("ROLE_USER"));
+        roleService.addRole(new Role("ROLE_ADMIN"));
+        userService.create(new User("admin",
+                "admin", 35, "admin@mail.ru",
+                "test_admin"), "ROLE_ADMIN");
+        userService.create(new User("user",
+                "user", 30, "user@mail.ru",
+                "test_user"), "ROLE_USER");
+        userService.create(new User("Ann",
+                "Brown", 22, "Ann@mail.ru",
+                "test_Ann"), "ROLE_USER");
+        userService.create(new User("Nick",
+                "White", 23, "Nick@mail.ru",
+                "test_Nick"), "ROLE_USER");
+        userService.create(new User("Bob",
+                "Black", 25, "Bob@mail.ru",
+                "test_Bob"), "ROLE_USER");
     }
 }
