@@ -32,23 +32,16 @@ public class AdminRestController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/new")
-    public ResponseEntity<User> getNewUser() {
-        User newUser = new User();
-        return new ResponseEntity<>(newUser, HttpStatus.OK);
-    }
-
-    @GetMapping("/read")
-    public ResponseEntity<User> getUserById(Long id) {
-        User userById = userService.getUserById(id);
-        return new ResponseEntity<>(userById, HttpStatus.OK);
-    }
-
+//    @GetMapping("/new")
+//    public ResponseEntity<User> getNewUser() {
+//        User newUser = new User();
+//        return new ResponseEntity<>(newUser, HttpStatus.OK);
+//    }
 
     @PostMapping("/create")
     public ResponseEntity<HttpStatus> createUser(@Valid @RequestBody User newUser) {
         String role;
-        if (newUser.getRoles().contains("ROLE_ADMIN")) {
+        if (newUser.getRoles().toString().contains("ROLE_ADMIN")) {
             role = "ROLE_ADMIN";
         } else {
             role = "ROLE_USER";
@@ -57,10 +50,16 @@ public class AdminRestController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/read")
+    public ResponseEntity<User> getUserById(@RequestParam ("id") Long id) {
+        User userById = userService.getUserById(id);
+        return new ResponseEntity<>(userById, HttpStatus.OK);
+    }
+
     @PostMapping("/edit")
     public ResponseEntity<HttpStatus> editUser(@Valid @RequestBody User editedUser) {
         String role;
-        if (editedUser.getRoles().contains("ROLE_ADMIN")) {
+        if (editedUser.getRoles().toString().contains("ROLE_ADMIN")) {
             role = "ROLE_ADMIN";
         } else {
             role = "ROLE_USER";

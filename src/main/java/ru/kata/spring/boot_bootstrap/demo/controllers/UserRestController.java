@@ -17,10 +17,10 @@ import ru.kata.spring.boot_bootstrap.demo.services.UserServiceImpl;
 @RestController
 @RequestMapping("/user")
 public class UserRestController {
-    @GetMapping("/author")
-    public ResponseEntity<User> getAuthenticatedUser() {
+    @GetMapping("/current")
+    public ResponseEntity<User> getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User authenticatedUser = (User) authentication.getPrincipal();
-        return new ResponseEntity<>(authenticatedUser, HttpStatus.OK);
+        User currentUser = (User) authentication.getPrincipal();
+        return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 }

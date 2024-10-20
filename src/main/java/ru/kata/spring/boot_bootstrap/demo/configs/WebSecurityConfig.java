@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import ru.kata.spring.boot_bootstrap.demo.services.UserServiceImpl;
 
@@ -32,6 +33,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+//                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // Enable CSRF token via cookies
+//                .and()
+                // other configurations
                 .formLogin()
                 .loginPage("/")
                 .loginProcessingUrl("/process_login")
@@ -39,7 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .failureUrl("/?error")
                 .and()
-//                .csrf().disable()// отключаем защиту куки, чтобы Postman работал - работает
+                // отключаем защиту куки, чтобы POST запросы работали через Postman
+                .csrf().disable()
                 .httpBasic(Customizer.withDefaults()) // Basic Auth для Postman
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
